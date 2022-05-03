@@ -15,6 +15,7 @@ public class SellerApp {
         do {
             System.out.println("------- MENU PRINCIPAL --------");
             System.out.println("1 - Cadastrar um novo produto");
+            System.out.println("2 - Listar todos os produtos cadastrados");
             System.out.println("0 - Sair do programa");
 
             System.out.print("Escolha uma operação: ");
@@ -43,6 +44,16 @@ public class SellerApp {
                 productsDb.add(newProduct);
 
                 break;
+            }
+
+            case 2: {
+                System.out.println("---------- LISTANDO PRODUTOS ----------");
+                for(Product product : productsDb) {
+                    System.out.println("ID: " + product.getId());
+                    System.out.println("Descrição: " + product.getDescription());
+                    System.out.println("Preço: " + product.getPrice());
+                    System.out.println("-----------------------------------------");
+                }
             }
         }
     }
