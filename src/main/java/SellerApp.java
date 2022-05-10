@@ -1,10 +1,13 @@
 import java.util.Scanner;
 
+import models.Supplier;
 import repository.ProductDB;
 import models.Product;
+import repository.SupplierDB;
 
 public class SellerApp {
     static ProductDB productsDb = new ProductDB();
+    static SupplierDB supplierDB = new SupplierDB();
 
     public static void main(String... args) {
         System.out.println("Boas vindas ao Seller App");
@@ -15,6 +18,7 @@ public class SellerApp {
             System.out.println("------- MENU PRINCIPAL --------");
             System.out.println("1 - Cadastrar um novo produto");
             System.out.println("2 - Listar todos os produtos cadastrados");
+            System.out.println("3 - Criar um novo fornecedor");
             System.out.println("0 - Sair do programa");
 
             System.out.print("Escolha uma operação: ");
@@ -53,6 +57,26 @@ public class SellerApp {
                     System.out.println("Preço: " + product.getPrice());
                     System.out.println("-----------------------------------------");
                 }
+            }
+
+            case 3: {
+                System.out.println("-------CRIANDO NOVO FORNECEDOR-------");
+
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.print("Informe o ID do fornecedor: ");
+                String id = scanner.nextLine();
+
+                System.out.print("Informe o nome: ");
+                String nome = scanner.nextLine();
+
+                System.out.print("Agora informe o telefone: ");
+                String phoneNumber = scanner.nextLine();
+
+                Supplier supplier = new Supplier(id, nome, phoneNumber);
+                supplierDB.addSupplier(supplier);
+
+                break;
             }
         }
     }
