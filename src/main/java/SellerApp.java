@@ -1,11 +1,10 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
+import db.ProductDB;
 import models.Product;
 
 public class SellerApp {
-    static List<Product> productsDb = new ArrayList<>();
+    static ProductDB productsDb = new ProductDB();
 
     public static void main(String... args) {
         System.out.println("Boas vindas ao Seller App");
@@ -41,14 +40,14 @@ public class SellerApp {
                 double price = scanner.nextDouble();
 
                 Product newProduct = new Product(id, description, price);
-                productsDb.add(newProduct);
+                productsDb.addProduct(newProduct);
 
                 break;
             }
 
             case 2: {
                 System.out.println("---------- LISTANDO PRODUTOS ----------");
-                for(Product product : productsDb) {
+                for(Product product : productsDb.getProducts()) {
                     System.out.println("ID: " + product.getId());
                     System.out.println("Descrição: " + product.getDescription());
                     System.out.println("Preço: " + product.getPrice());
