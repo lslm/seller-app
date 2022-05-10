@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-import db.ProductDB;
+import repository.ProductDB;
 import models.Product;
 
 public class SellerApp {
