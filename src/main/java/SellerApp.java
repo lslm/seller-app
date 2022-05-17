@@ -57,6 +57,7 @@ public class SellerApp {
                     System.out.println("Preço: " + product.getPrice());
                     System.out.println("-----------------------------------------");
                 }
+                break;
             }
 
             case 3: {
