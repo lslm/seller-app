@@ -2,6 +2,7 @@ package repository;
 
 import models.Product;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,21 @@ public class ProductDB {
     }
 
     public void addProduct(Product product) {
-        products.add(product);
+        String query = "INSERT INTO products(id, description, price) VALUES (\"" + product.getId() + "\", \"" + product.getDescription() + "\"," + product.getPrice() + ");";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/sellerapp", "root", null);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public Product getProductById(int productId) {
@@ -26,6 +41,35 @@ public class ProductDB {
     }
 
     public List<Product> getProducts() {
-        return products;
+        List<Product> persistedProducts = new ArrayList<>();
+
+        String query = "SELECT * FROM products;";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/sellerapp", "root", null);
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()) {
+                String id = resultSet.getString("id");
+                String description = resultSet.getString("description");
+                double price = resultSet.getDouble("price");
+
+                Product product = new Product(id, description, price);
+                persistedProducts.add(product);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return persistedProducts;
     }
 }
