@@ -2,14 +2,37 @@ package repository;
 
 import models.Customer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDB {
     public List<Customer> getCustomers() {
-        return null;
+        List<Customer> persistedCustomers = new ArrayList<>();
+
+        String query = "SELECT * FROM customers;";
+
+        try {
+            Connection connection = Configuration.getConnection();
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()) {
+                String id = resultSet.getString("id");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String address = resultSet.getString("address");
+                String phoneNumber = resultSet.getString("phone_number");
+
+                Customer customer = new Customer(id, firstName, lastName, address, phoneNumber);
+                persistedCustomers.add(customer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return persistedCustomers;
     }
 
     public Customer getCustomerById() {

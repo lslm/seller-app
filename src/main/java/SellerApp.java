@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 import models.Customer;
@@ -25,6 +26,7 @@ public class SellerApp {
             System.out.println("3 - Obter dados de um produto");
             System.out.println("4 - Criar um novo fornecedor");
             System.out.println("5 - Cadastrar um novo cliente");
+            System.out.println("6 - Listar todos os clientes cadastrados");
             System.out.println("0 - Sair do programa");
 
             System.out.print("Escolha uma operação: ");
@@ -128,6 +130,20 @@ public class SellerApp {
                 Customer customer = new Customer(id, firstName, lastName, address, phoneNumber);
 
                 customerDB.addCustomer(customer);
+
+                break;
+            }
+
+            case 6: {
+                List<Customer> customers = customerDB.getCustomers();
+
+                System.out.println("------ LISTANDO CLIENTES CADASTRADOS ------");
+                for (Customer customer :  customers) {
+                    System.out.println("ID: " + customer.getId() +
+                            "\t - Nome: " + customer.getFirstName() + " " + customer.getLastName() +
+                            "\t - Endereço: " + customer.getAddress() +
+                            "\t - Telefone: " + customer.getPhoneNumber());
+                }
 
                 break;
             }
