@@ -27,6 +27,7 @@ public class SellerApp {
             System.out.println("4 - Criar um novo fornecedor");
             System.out.println("5 - Cadastrar um novo cliente");
             System.out.println("6 - Listar todos os clientes cadastrados");
+            System.out.println("7 - Buscar cliente");
             System.out.println("0 - Sair do programa");
 
             System.out.print("Escolha uma operação: ");
@@ -143,6 +144,27 @@ public class SellerApp {
                             "\t - Nome: " + customer.getFirstName() + " " + customer.getLastName() +
                             "\t - Endereço: " + customer.getAddress() +
                             "\t - Telefone: " + customer.getPhoneNumber());
+                }
+
+                break;
+            }
+
+            case 7: {
+                System.out.println("-------OBTENDO DADOS DE CLIENTE--------");
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.print("Informe o ID do cliente: ");
+                String id = scanner.nextLine();
+
+                Customer customer = customerDB.getCustomerById(id);
+
+                if (customer != null) {
+                    System.out.println("Primeiro nome: " + customer.getFirstName());
+                    System.out.println("Último nome: " +  customer.getLastName());
+                    System.out.println("Endereço: " +  customer.getAddress());
+                    System.out.println("Telefone de contato: " + customer.getPhoneNumber());
+                } else {
+                    System.out.println("Cliente não encontrado!");
                 }
 
                 break;

@@ -35,7 +35,30 @@ public class CustomerDB {
         return persistedCustomers;
     }
 
-    public Customer getCustomerById() {
+    public Customer getCustomerById(String customerId) {
+        String query = "SELECT * FROM customers WHERE id = ?";
+
+        try {
+            Connection connection = Configuration.getConnection();
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, customerId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String address = resultSet.getString("address");
+                String phoneNumber = resultSet.getString("phone_number");
+
+                return new Customer(id, firstName, lastName, address, phoneNumber);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
