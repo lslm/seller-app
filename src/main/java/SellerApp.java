@@ -20,7 +20,7 @@ public class SellerApp {
         int option;
 
         do {
-            System.out.println("------- MENU PRINCIPAL --------");
+            System.out.println("-------MENU PRINCIPAL--------");
             System.out.println("1 - Cadastrar um novo produto");
             System.out.println("2 - Listar todos os produtos cadastrados");
             System.out.println("3 - Obter dados de um produto");
@@ -43,6 +43,7 @@ public class SellerApp {
     static void process(int option) {
         switch (option) {
             case 1: {
+                System.out.println("-------CRIANDO NOVO PRODUTO-------");
                 Scanner scanner = new Scanner(System.in);
 
                 System.out.print("Informe a descrição do produto: ");
@@ -61,7 +62,7 @@ public class SellerApp {
             }
 
             case 2: {
-                System.out.println("---------- LISTANDO PRODUTOS ----------");
+                System.out.println("----------LISTANDO PRODUTOS----------");
                 for(Product product : productsDb.getProducts()) {
                     System.out.println("ID: " + product.getId());
                     System.out.println("Descrição: " + product.getDescription());
@@ -138,7 +139,7 @@ public class SellerApp {
             case 6: {
                 List<Customer> customers = customerDB.getCustomers();
 
-                System.out.println("------ LISTANDO CLIENTES CADASTRADOS ------");
+                System.out.println("------LISTANDO CLIENTES CADASTRADOS------");
                 for (Customer customer :  customers) {
                     System.out.println("ID: " + customer.getId() +
                             "\t - Nome: " + customer.getFirstName() + " " + customer.getLastName() +
