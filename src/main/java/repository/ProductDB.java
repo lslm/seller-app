@@ -14,27 +14,43 @@ public class ProductDB {
     }
 
     public void addProduct(Product product) {
-        String query = "INSERT INTO products(id, description, price) VALUES (\"" + product.getId() + "\", \"" + product.getDescription() + "\"," + product.getPrice() + ");";
+        String query = "INSERT INTO products(id, description, price) VALUES (?, ?, ?)";
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+            Connection connection = Configuration.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/sellerapp", "root", null);
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(query);
+            statement.setString(1, product.getId());
+            statement.setString(2, product.getDescription());
+            statement.setDouble(3, product.getPrice());
+
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public Product getProductById(int productId) {
-        for (Product product : products) {
-            if (product.getId().equals(productId))
-                return product;
+    public Product getProductById(String productId) {
+        String query = "SELECT * FROM products WHERE id = ?";
+
+        try {
+            Connection connection = Configuration.getConnection();
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, productId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String description = resultSet.getString("description");
+                double price = resultSet.getDouble("price");
+
+                return new Product(id, description, price);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return null;
@@ -46,13 +62,7 @@ public class ProductDB {
         String query = "SELECT * FROM products;";
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/sellerapp", "root", null);
+            Connection connection = Configuration.getConnection();
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);

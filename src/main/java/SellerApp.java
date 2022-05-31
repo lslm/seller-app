@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import models.Supplier;
+import repository.Configuration;
 import repository.ProductDB;
 import models.Product;
 import repository.SupplierDB;
@@ -18,7 +19,8 @@ public class SellerApp {
             System.out.println("------- MENU PRINCIPAL --------");
             System.out.println("1 - Cadastrar um novo produto");
             System.out.println("2 - Listar todos os produtos cadastrados");
-            System.out.println("3 - Criar um novo fornecedor");
+            System.out.println("3 - Obter dados de um produto");
+            System.out.println("4 - Criar um novo fornecedor");
             System.out.println("0 - Sair do programa");
 
             System.out.print("Escolha uma operação: ");
@@ -27,6 +29,8 @@ public class SellerApp {
 
             process(option);
         } while (option != 0);
+
+        Configuration.closeConnection();
     }
 
     static void process(int option) {
@@ -61,6 +65,23 @@ public class SellerApp {
             }
 
             case 3: {
+                System.out.println("-------OBTENDO DADOS DE PRODUTO--------");
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.print("Informe um ID do produto: ");
+                String id = scanner.nextLine();
+
+                Product product = productsDb.getProductById(id);
+
+                System.out.println("ID: " + product.getId());
+                System.out.println("Descrição: " + product.getDescription());
+                System.out.println("Preço: " + product.getPrice());
+                System.out.println("-----------------------------------------");
+
+                break;
+            }
+
+            case 4: {
                 System.out.println("-------CRIANDO NOVO FORNECEDOR-------");
 
                 Scanner scanner = new Scanner(System.in);
