@@ -1,8 +1,10 @@
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 import models.Customer;
 import models.Supplier;
+import reports.CSVExporter;
 import repository.Configuration;
 import repository.CustomerDB;
 import repository.ProductDB;
@@ -28,6 +30,7 @@ public class SellerApp {
             System.out.println("5 - Cadastrar um novo cliente");
             System.out.println("6 - Listar todos os clientes cadastrados");
             System.out.println("7 - Buscar cliente");
+            System.out.println("8 - Exportar dados de produtos");
             System.out.println("0 - Sair do programa");
 
             System.out.print("Escolha uma operação: ");
@@ -166,6 +169,24 @@ public class SellerApp {
                     System.out.println("Telefone de contato: " + customer.getPhoneNumber());
                 } else {
                     System.out.println("Cliente não encontrado!");
+                }
+
+                break;
+            }
+
+            case 8: {
+                System.out.println("Exportando dados de produtos...");
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.print("Para onde você deseja exportar o arquivo: ");
+                String path = scanner.nextLine();
+
+                List<Product> products = productsDb.getProducts();
+
+                try {
+                    CSVExporter.export(path, products);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
                 break;
