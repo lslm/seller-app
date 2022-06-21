@@ -31,6 +31,7 @@ public class SellerApp {
             System.out.println("7 - Buscar cliente");
             System.out.println("8 - Exportar dados de produtos");
             System.out.println("9 - Criar pedido de venda");
+            System.out.println("10 - Listar pedidos de vendas");
             System.out.println("0 - Sair do programa");
 
             System.out.print("Escolha uma operação: ");
@@ -215,6 +216,23 @@ public class SellerApp {
                 Order order = new Order(id, customer, product, quantity);
 
                 orderDB.addOrder(order);
+
+                break;
+            }
+
+            case 10: {
+                System.out.println("Listando pedidos de venda");
+
+                List<Order> orders = orderDB.getAllOrders();
+
+                for (Order order : orders) {
+                    System.out.println("----------------------------------------------------------------------");
+                    System.out.println("ID: " + order.getId() +
+                            " - Produto: " + order.getProduct().getDescription() +
+                            " - Cliente: " + order.getCustomer().getFirstName() + " " + order.getCustomer().getLastName() +
+                            " - Quantidade: " + order.getQuantity());
+                    System.out.println("----------------------------------------------------------------------");
+                }
             }
         }
     }

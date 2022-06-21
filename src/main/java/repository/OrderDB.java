@@ -2,10 +2,11 @@ package repository;
 
 import models.Customer;
 import models.Order;
+import models.Product;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderDB {
     public void addOrder(Order order) {
@@ -24,5 +25,35 @@ public class OrderDB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Order> getAllOrders() {
+        String query = "SELECT * FROM orders;";
+
+        List<Order> orders = new ArrayList<>();
+
+        try {
+            Connection connection = Configuration.getConnection();
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String customerId = resultSet.getString("customer_id");
+                String productId = resultSet.getString("product_id");
+                int quantity = resultSet.getInt("quantity");
+
+                Customer customer = new CustomerDB().getCustomerById(customerId);
+                Product product = new ProductDB().getProductById(productId);
+
+                Order order = new Order(id, customer, product, quantity);
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return orders;
     }
 }
