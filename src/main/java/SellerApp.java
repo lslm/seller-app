@@ -3,18 +3,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import models.Customer;
+import models.Order;
 import models.Supplier;
 import reports.CSVExporter;
-import repository.Configuration;
-import repository.CustomerDB;
-import repository.ProductDB;
+import repository.*;
 import models.Product;
-import repository.SupplierDB;
 
 public class SellerApp {
     static ProductDB productsDb = new ProductDB();
     static SupplierDB supplierDB = new SupplierDB();
     static CustomerDB customerDB = new CustomerDB();
+    static OrderDB orderDB = new OrderDB();
 
     public static void main(String... args) {
         System.out.println("Boas vindas ao Seller App");
@@ -31,6 +30,7 @@ public class SellerApp {
             System.out.println("6 - Listar todos os clientes cadastrados");
             System.out.println("7 - Buscar cliente");
             System.out.println("8 - Exportar dados de produtos");
+            System.out.println("9 - Criar pedido de venda");
             System.out.println("0 - Sair do programa");
 
             System.out.print("Escolha uma operação: ");
@@ -190,6 +190,31 @@ public class SellerApp {
                 }
 
                 break;
+            }
+
+            case 9: {
+                System.out.println("Criando pedido de venda");
+
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.print("Informe o ID do pedido: ");
+                String id = scanner.nextLine();
+
+                System.out.print("Qual produto você deseja criar a venda: ");
+                String productId = scanner.nextLine();
+
+                System.out.print("Para qual cliente você deseja criar a venda: ");
+                String customerId = scanner.nextLine();
+
+                System.out.print("Qual a quantidade você deseja vender: ");
+                int quantity = scanner.nextInt();
+
+                Customer customer = customerDB.getCustomerById(customerId);
+                Product product = productsDb.getProductById(productId);
+
+                Order order = new Order(id, customer, product, quantity);
+
+                orderDB.addOrder(order);
             }
         }
     }
