@@ -5,7 +5,7 @@ import repository.ProductDB;
 
 import java.util.Scanner;
 
-public class CreateProductUI {
+public class CreateProductUI implements IUserInterface {
     ProductDB productsDb = new ProductDB();
 
     public void show() {

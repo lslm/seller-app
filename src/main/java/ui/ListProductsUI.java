@@ -3,7 +3,7 @@ package ui;
 import models.Product;
 import repository.ProductDB;
 
-public class ListProductsUI {
+public class ListProductsUI implements IUserInterface {
     ProductDB productsDb = new ProductDB();
 
     public void show() {

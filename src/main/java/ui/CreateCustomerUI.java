@@ -5,7 +5,7 @@ import repository.CustomerDB;
 
 import java.util.Scanner;
 
-public class CreateCustomerUI {
+public class CreateCustomerUI implements IUserInterface {
     CustomerDB customerDB = new CustomerDB();
 
     public void show() {

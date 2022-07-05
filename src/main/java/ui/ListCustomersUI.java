@@ -5,7 +5,7 @@ import repository.CustomerDB;
 
 import java.util.List;
 
-public class ListCustomersUI {
+public class ListCustomersUI implements IUserInterface {
     CustomerDB customerDB = new CustomerDB();
 
     public void show() {

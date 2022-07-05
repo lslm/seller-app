@@ -9,7 +9,7 @@ import repository.ProductDB;
 
 import java.util.Scanner;
 
-public class CreateOrderUI {
+public class CreateOrderUI implements IUserInterface {
     CustomerDB customerDB = new CustomerDB();
     ProductDB productsDb = new ProductDB();
     OrderDB orderDB = new OrderDB();

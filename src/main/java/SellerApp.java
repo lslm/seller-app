@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import repository.*;
 import ui.*;
@@ -7,6 +9,18 @@ public class SellerApp {
         System.out.println("Boas vindas ao Seller App");
 
         int option;
+
+        Map<Integer, IUserInterface> optionsUserInterfaces = new HashMap<>();
+        optionsUserInterfaces.put(1, new CreateProductUI());
+        optionsUserInterfaces.put(2, new ListProductsUI());
+        optionsUserInterfaces.put(3, new FindProductUI());
+        optionsUserInterfaces.put(4, new CreateSupplierUI());
+        optionsUserInterfaces.put(5, new CreateCustomerUI());
+        optionsUserInterfaces.put(6, new ListCustomersUI());
+        optionsUserInterfaces.put(7, new FindCustomerUI());
+        optionsUserInterfaces.put(8, new ExportProductsUI());
+        optionsUserInterfaces.put(9, new CreateOrderUI());
+        optionsUserInterfaces.put(10, new ListOrdersUI());
 
         do {
             System.out.println("-------MENU PRINCIPAL--------");
@@ -26,73 +40,12 @@ public class SellerApp {
             Scanner scanner = new Scanner(System.in);
             option = scanner.nextInt();
 
-            process(option);
+            if (option != 0) {
+                IUserInterface ui = optionsUserInterfaces.get(option);
+                ui.show();
+            }
         } while (option != 0);
 
         Configuration.closeConnection();
-    }
-
-    static void process(int option) {
-        switch (option) {
-            case 1: {
-                CreateProductUI createProductUI = new CreateProductUI();
-                createProductUI.show();
-                break;
-            }
-
-            case 2: {
-                ListProductsUI listProductsUI = new ListProductsUI();
-                listProductsUI.show();
-                break;
-            }
-
-            case 3: {
-                FindProductUI findProductUI = new FindProductUI();
-                findProductUI.show();
-                break;
-            }
-
-            case 4: {
-                CreateSupplierUI createSupplierUI = new CreateSupplierUI();
-                createSupplierUI.show();
-                break;
-            }
-
-            case 5: {
-                CreateCustomerUI createCustomerUI = new CreateCustomerUI();
-                createCustomerUI.show();
-                break;
-            }
-
-            case 6: {
-                ListCustomersUI listCustomersUI = new ListCustomersUI();
-                listCustomersUI.show();
-                break;
-            }
-
-            case 7: {
-                FindCustomerUI findCustomerUI = new FindCustomerUI();
-                findCustomerUI.show();
-                break;
-            }
-
-            case 8: {
-                ExportProductsUI exportProductsUI = new ExportProductsUI();
-                exportProductsUI.show();
-                break;
-            }
-
-            case 9: {
-                CreateOrderUI createOrderUI = new CreateOrderUI();
-                createOrderUI.show();
-                break;
-            }
-
-            case 10: {
-                ListOrdersUI listOrdersUI = new ListOrdersUI();
-                listOrdersUI.show();
-                break;
-            }
-        }
     }
 }

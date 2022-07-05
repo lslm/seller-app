@@ -5,7 +5,7 @@ import repository.SupplierDB;
 
 import java.util.Scanner;
 
-public class CreateSupplierUI {
+public class CreateSupplierUI implements IUserInterface {
     SupplierDB supplierDB = new SupplierDB();
 
     public void show() {
@@ -24,5 +24,8 @@ public class CreateSupplierUI {
 
         Supplier supplier = new Supplier(id, nome, phoneNumber);
         supplierDB.addSupplier(supplier);
+    }
+    public void fazAlgumaCoisa() {
+
     }
 }

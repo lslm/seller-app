@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-public class ExportProductsUI {
+public class ExportProductsUI implements IUserInterface {
     ProductDB productsDb = new ProductDB();
 
     public void show() {

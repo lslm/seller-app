@@ -5,7 +5,7 @@ import repository.OrderDB;
 
 import java.util.List;
 
-public class ListOrdersUI {
+public class ListOrdersUI implements IUserInterface {
     OrderDB orderDB = new OrderDB();
 
     public void show() {
